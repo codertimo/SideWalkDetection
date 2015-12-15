@@ -11,6 +11,5 @@ using namespace std;
 using namespace cv;
 
 void sendProc(int);
-
 class CompareableLine;
 class LineMap;

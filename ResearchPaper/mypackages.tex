@@ -1,0 +1,112 @@
+%% The 'helvet' and 'times' packages define the typefaces used for
+%% serif and sans serif type in this document. Computer Modern Roman
+%% is used for mathematics typesetting. The scale factor is set to .92
+%% to bring the sans-serif type in line with the serif type.
+
+%\usepackage[scaled=.92]{helvet}  % not in TOG
+%\usepackage{times}  % not in TOG
+
+%% The 'graphicx' package allows for the inclusion of EPS figures.
+
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+%\usepackage{mathptmx} % This package screws up the entire fonts in this pdf.
+
+%% use this for zero \parindent and non-zero \parskip, intelligently.
+
+%\usepackage{parskip} % not in TOG
+
+%% Optional: the 'caption' package provides a nicer-looking replacement
+%% for the standard caption environment. With 'labelfont=bf,'textfont=it',
+%% caption labels are bold and caption text is italic.
+
+\usepackage[labelfont=bf,textfont=it]{caption}
+
+\usepackage{ifpdf}
+
+%====================================================================%
+% Min's favorite package
+\usepackage{color}
+\usepackage{datetime}
+\mdyyyydate
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{subfig}
+\usepackage{microtype}
+\usepackage{units}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{gensymb}
+\usepackage{cite}
+
+%====================================================================%
+% for commenting
+%\newcommand{\TODO}[3]{}                             % for Final draft
+\ifpdf
+  \newcommand{\TODO}[3]{\textcolor{#2}{\textbf{[\textsc{#1:} \textit{#3}}]}}
+  % for work in progress -- makes problems with DVI viewer!
+\else
+  \newcommand{\TODO}[3]{{\textbf{[\textsc{#1:} \textit{#3}}]}}  % for work in progress
+\fi
+%============ ========================================================%
+\usepackage{color}
+\definecolor{cyan}{cmyk}{1,0,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{magenta}{cmyk}{0,1,0,0}
+\definecolor{darkyellow}{cmyk}{0,0,0.75,0}
+%====================================================================%
+%\newcommand{\MIN}[1]{}
+%\newcommand{\GILJOO}[1]{}
+\newcommand{\MIN}[1]{\TODO{min}{red}{#1}}
+\newcommand{\GILJOO}[1]{\TODO{giljoo}{darkgreen}{#1}}
+
+%\newcommand{\NEW}[1]{#1} % for writing
+%\newcommand{\NEWNEW}[1]{#1} % for writing
+\newcommand{\NEW}[1]{{\color{blue}{#1}}} % for writing
+%\newcommand{\NEW}[1]{{\color{red}{#1}}} % for revision approval (#1)
+%\newcommand{\NEWNEW}[1]{{\color{red}{#1}}} % after revision approval (#2)
+%====================================================================%
+\newcommand{\DELETE}[1]{} %\TODO{delete}{red}{#1}}
+\newcommand{\IGNORE}[1]{}
+%\newcommand{\NEW}[1]{{#1}} % for submission
+%====================================================================%
+% this makes list spacing much better.
+\newenvironment{tightenumerate}{
+\vspace{-1.5mm}
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}{\end{enumerate}
+\vspace{-1.5mm}
+}
+\newenvironment{tightitemize}{
+\vspace{-1.5mm}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{2pt}
+  \setlength{\parsep}{0pt}}{\end{itemize}
+
+}
+%\newcommand{\mparagraph}[1]{\noindent\textsf{\textbf{#1}\hspace{1em}}}
+%\newcommand{\mparagraph}[1]{\noindent\textbf{#1}\hspace{.5em}}
+\newcommand{\mparagraph}[1]{\vspace{.6mm}\noindent\textsf{\textbf{#1.}\hspace{1mm}}}
+%====================================================================%
+\def\v{\checkmark}
+\def\so{~\\$\bullet$\,~}
+\def\o{$\bullet$\,~}
+\def\cdm{\,cd/m$^2$}
+%====================================================================%
+\renewcommand*\Call[2]{\textproc{#1}(#2)} % nesting \Call in the \Call in the algorithm package
+%====================================================================%
+%\usepackage[colorlinks=true,     %remove square
+%        linkcolor=blue,        %red
+%        anchorcolor=blue,        %black
+%        citecolor=blue,        %green
+%        filecolor=blue,        %magenta
+%        menucolor=blue,        %red
+%        urlcolor=blue,            %cyan
+%        ]{hyperref} % make links for contents, figures, and reference
+%====================================================================%  

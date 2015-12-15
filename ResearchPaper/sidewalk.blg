@@ -1,0 +1,19 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: sidewalk.aux
+The style file: eg-alpha.bst
+I couldn't open database file sidewalk.bib
+---line 46 of file sidewalk.aux
+ : \bibdata{sidewalk
+ :                  }
+I'm skipping whatever remains of this command
+I found no database files---while reading file sidewalk.aux
+Warning--I didn't find a database entry for "he2004color"
+Warning--I didn't find a database entry for "seng2008sidewalk"
+Warning--I didn't find a database entry for "tomas1998bilateral"
+Warning--I didn't find a database entry for "deng1993adaptive"
+Warning--I didn't find a database entry for "canny1986computational"
+Warning--I didn't find a database entry for "bao2005canny"
+Warning--I didn't find a database entry for "shah2015review"
+Warning--I didn't find a database entry for "kiryati1991probabilistic"
+Warning--I didn't find a database entry for "barinova2012detection"
+Warning--I didn't find a database entry for "seber2012linear"
+(There were 2 error messages)

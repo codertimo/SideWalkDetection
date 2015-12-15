@@ -1,0 +1,59 @@
+\section{Our Method}
+\label{sec:ourmethod}
+The main key of our algorithm is summarizing. We apply small patch and accumulated each result. Then we summarized the result and get results. It is quite effective than just do high-accuracy algorithm to each video's frame. We reduce much time by adopting this method to get data. It is economical for doing just little time-complexity procedure and summarizing. Thanks to linear regression analysis, we easily get total data from accumulated one and it's suit well for real-time processing such that program like this.
+\newline\newline 
+Before we applied the algorithm, there were some steps to go through. We got the video frame by server. But, to use this video frame, the video frames must be converted to contours image. In order to minimize elapsed time, we applied Bilateral filter to exclude frames' unexpected noises. After applying it, we applied Canny Detection to find contours of the images. Also, we used Probabilistic Hough Transform to get lines of the images. After that, we measured the reliability of each line. And the most reliable two lines are results. But, two lines must be different from each other. So, we set equation of M like this.
+\begin{equation}
+\mathit{{M}_{ij} = {K}_{i} + {m}_{j}} \quad\left(i=0,1 \right) \left(j=0,1 \right)
+\end{equation}
+Equation (1) simply represents the range of line's slope. M is the discriminant of line that represent the upper-bound and lower-bound of the should not be required image's slope. We set value like this. K is the weighted value and it would be defined as follow by given test. As we calculate line as our track, we use DMS(Degree-Minute-Second) notation rather than using radian.
+\begin{equation}{K}_{0} = 10,\quad{K}_{1} = -10\end{equation} 
+To set the slope's range, we set K as the constant value which make the candidate of slopes. As lines' slope is described as DMS notation width of range is defined by each line's slope. And there are more candidates of line where test line's slope is high. To get reasonable path, it is required that angle of slope is close to 90 degree. Lines are required to contrary with each other by it's direction and used to estimate the sidewalk's actual way by finding vanishing point which made of each side's line that assumed to be sidewalk. 
+
+If slope of two lines are too close, it means there are no need to consider these lines because they are almost one line in high probability. Else, if some new line has come in the situation of it's slope is not included in existing line's range, we define the situation as worthwhile and check line's reliability more. We check line by checking it's responsibility. We only compared a new line with two lines that already exist. Since we wanted to check all reliability, we apply this equation in all each input line. \newline
+In order to be reliable, it is required to be long and should be exclusive for each. Also, as we just need result that involves two line which it's slope must be exclusive.
+
+Also, we suggest that input image's tendency are likely to refer sidewalk's border. So, we imply some linear regression method that contains two variables, the slope and length.
+The result of algorithm is pair of lines. So, we need to convert line's reliability not only of them, but with some other line. To give them more accuracy, we set some adopted parameter and evaluated them. Now we set the loss function of two line.
+\begin{equation}
+\mathit{A_{ij} = \beta((l_{i}+l_{j})^{2} - l) +(1-\beta)D(m_i,m_j)}
+\end{equation}
+\begin{equation}
+\mathit{S(\beta) =Var(A_{ij})}
+\end{equation}
+In constructing loss function, we calculate matrix's variance. If algorithm's result are correct, it's mount should be aroused. Also, we adopt linear regression method. We get implicit derivatives of this function by weight parameter that concerning length factor to get minimum data of loss function's result. It's parameter are easily changed to improve its quality, so we, at first, coordinate the parameter to suit with input data. So se set the P as average of matrix A.
+\begin{equation}
+\mathit{P = \frac{\sum_{i=0}^{n}{\sum_{j=0}^{n}{A_{ij}}}}{n^{2}}}
+\end{equation}
+P is related to parameter and represent average of data in matrix A. So, function S is shown at this form of by calculating deviation.
+\begin{equation}
+\mathit{S(\beta)} =\sum_{i=0}^{n}{\sum_{j=0}^{n}{(A_{ij} - P)^{2}}}
+\end{equation}
+Now, we get implicit derivative of S by parameter. And variables that x, y, X, Y are shown as following equations.
+\begin{equation}
+\mathit{\frac{\partial S(\beta)}{\partial \beta} =2 \sum_{i=0}^{n}{\sum_{j=0}^{n}{((x^{2}+x-2X+2Y)\beta + 2y-2Y)}}=0} 
+\end{equation}
+\begin{equation}
+\mathit{x = (l_{i}+l_{j})^2 - l,\quad y = D(m_{i},m_{j})}
+\end{equation}
+\begin{equation}
+\mathit{X=\frac{\sum_{i=0}^{n}{\sum_{j=0}^{n}}{x}}{n^{2}},\quad Y=\frac{\sum_{i=0}^{n}{\sum_{j=0}^{n}{y}}}{n^{2}}}
+\end{equation}
+Equation (7) present implicit derivative of loss function. To get critical value of it, we can set parameter as related to input data only. And if needed, we can change parameter to get more quality.  After calculating it, we can finally set the loss function. 
+
+Now, we should define function D to get result of S. While D get two function as variable, we can assume that two line's average angle is close to pedestrian's direction and result of linear regression method. So we define function D as this form.
+\begin{equation}
+\mathit{D(m_{i},m_{j}) = |m_i + m_j - 2 *m_{avg}|}
+\end{equation} 
+In short, we search the slope of all lines by using linear regression method. By adjusting ours, we can develop useful loss function between two lines. This function's parameter are needed to be set before the function is called. But, the parameter's are calculated by linear regression method. Although There are some necessary to be changed by image's width and height, we resize it's size.\quad
+ 
+After applying method that calculate line's reliability with tendency of image, we use linear regression to reduce some trivial errors and simple vibration of user. We use OLS(Ordinary Least Square) method to get line's tendency. In this process, we can get our direction that can be assumed by our previous path model and know whether our path is fit in sidewalk. 
+
+\begin{equation}
+\mathit{O(n^2)}
+\end{equation}
+
+The algorithm's ti	me complexity is mostly influenced by situation which affect linear vector's size. By using some regression method, we just obtain it's time complexity mostly manufactured by which regression models to take. If we choose Theil-Sen Estimator or Gradient Descendant and so on that refers to more complicated regression model, we have to give up getting real-time processing. Thus, we choose just simple and strong model that compute our algorithm.
+
+In real-time detection, there have presented an some un-known situation that can damage our result. So, we finally use some linear regression method in combination of direction and confidence of each result. Adjusting this method, we assure that result show the direction of frame. 
+There are some point that accuracy and performance time of algorithm needed to be compromised. Especially in real-time processing, performance time must be reduced to get meaningful result. So, there are many ways to deal with such that problems. But, we suggested that it is better to use simple algorithm and integrate with regression or some method is more efficient than using complex algorithm structure to define each frame. It is more economical and change it's elapsed-time more easily and suitable.
